@@ -1,0 +1,69 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>simple debug tool</title>
+</head>
+
+<body>
+
+<span class="Apple-style-span" style="color: rgb(0, 0, 0); font-family: Simsun; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: -webkit-auto; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-decorations-in-effect: none; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; font-size: medium; ">
+<div style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px; background-color: rgb(255, 255, 255); color: rgb(0, 0, 0); font: normal normal normal 16px/1.5 宋体, 'sans serif', tahoma, verdana, helvetica; word-wrap: break-word; word-break: break-all; ">
+	<span class="Apple-style-span" style="widows: 2; text-transform: none; text-indent: 0px; font: normal normal normal 12px/18px 'sans serif', tahoma, verdana, helvetica; white-space: normal; orphans: 2; letter-spacing: normal; color: rgb(0, 0, 0); word-spacing: 0px; -webkit-text-decorations-in-effect: none; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; ">
+	　<p style="margin-top: 5px; margin-right: 0px; margin-bottom: 5px; margin-left: 0px; word-wrap: break-word; ">
+	<strong>QuickStart:</strong></p>
+	<p style="margin-top: 5px; margin-right: 0px; margin-bottom: 5px; margin-left: 0px; word-wrap: break-word; ">
+	&nbsp;&nbsp;&nbsp;&nbsp;1. LOG_DEBUG_INFO 是一个Linux环境下辅助输出调试信息的工具，对比printf函数提供更详细的调试输出信息
+	，比如&quot;文件名&quot;，&quot;行号&quot;，&quot;函数名&quot;。</p>&nbsp;&nbsp;&nbsp;&nbsp;2. LOG_DEBUG_INFO 的使用方法与printf函数相同。可以在代码中使用printf输出调试信息的位置替换成使用 
+	LOG_DEBUG_INFO 来输出调试信息，不需要进行任何的转换操作。例如:<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;printf( &quot;connect to mysql.&quot; ); --&gt; LOG_DEBUG_INFO( &quot;connect to mysql.&quot; 
+	);<span class="Apple-tab-span" style="white-space: pre; "> </span><br>
+	&nbsp;&nbsp;&nbsp;&nbsp;printf( &quot;server info(%s , %d)&quot; , szIP , iPort ); --&gt; LOG_DEBUG_INFO( 
+	&quot;server info(%s , %d)&quot; , szIP , iPort );<span class="Apple-tab-span" style="white-space: pre; ">
+	</span><br>
+	<br>
+	<strong>Notice:</strong><br>
+	&nbsp;&nbsp;&nbsp;&nbsp;1. 默认情况下，LOG_DEBUG_INFO 会将调试信息输出到 stderr。<span class="Apple-tab-span" style="white-space: pre; ">
+	</span><br>
+	&nbsp;&nbsp;&nbsp;&nbsp;2. LOG_DEBUG_INFO 的调试输出信息由 &quot;DEBUG&quot; 宏来进行设置，对于编译选项:<span class="Apple-tab-span" style="white-space: pre; ">
+	</span><br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-DDEBUG: 启动 LOG_DEBUG_INFO 输出调试信息。<span class="Apple-tab-span" style="white-space: pre; ">
+	</span><br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-UDEBUG: 关闭 LOG_DEBUG_INFO 输出调试信息。<span class="Apple-tab-span" style="white-space: pre; ">
+	</span><br>
+	&nbsp;&nbsp;&nbsp;&nbsp;3. 在使用LOG_DEBUG_INFO输出调试信息时，不需要在格式化字符串的最后加上&quot;\n&quot;来换行，LOG_DEBUG_INFO会自动在格式化的<span class="Apple-tab-span" style="white-space: pre; ">
+	</span>输出信息后添加&quot;\n&quot;换行。<br>
+	<br>
+	<strong>Tips:</strong><br>
+	&nbsp;&nbsp;&nbsp;&nbsp;1. 如果输出的debug信息过多，可以使用命令行下的重定向功能来将输出进行重定向。在使用 LOG_DEBUG_INFO 时，有一种更好的<span class="Apple-tab-span" style="white-space: pre; ">
+	</span>方法来解决调试信息的重定向问题，也即是在main函数入口处进行重定向设置，代码如下:<p style="margin-top: 5px; margin-right: 0px; margin-bottom: 5px; margin-left: 0px; word-wrap: break-word; ">
+	&nbsp;<span style="font-family: '??'; color: rgb(0, 0, 255); font-size: 10pt; ">int</span><span style="font-family: '??'; color: rgb(0, 0, 0); font-size: 10pt; "><span class="Apple-converted-space">&nbsp;</span>main(<span class="Apple-converted-space">&nbsp;</span></span><span style="font-family: '??'; color: rgb(0, 0, 255); font-size: 10pt; ">int</span><span style="font-family: '??'; color: rgb(0, 0, 0); font-size: 10pt; "><span class="Apple-converted-space">&nbsp;</span>argc 
+	,<span class="Apple-converted-space">&nbsp;</span></span><span style="font-family: '??'; color: rgb(0, 0, 255); font-size: 10pt; ">char</span><span style="font-family: '??'; color: rgb(0, 0, 0); font-size: 10pt; "><span class="Apple-converted-space">&nbsp;</span>*argv[] 
+	)</span></p>
+	<pre style="background-color: rgb(255, 255, 255); text-indent: 0px; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; "><span style="font-family: '??'; color: rgb(0, 0, 0); font-size: 10pt; ">{</span></pre>
+	<pre style="background-color: rgb(255, 255, 255); text-indent: 0px; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; "><span style="font-family: '??'; color: rgb(0, 0, 0); font-size: 10pt; ">    </span><span style="font-family: '??'; color: rgb(0, 0, 255); font-size: 10pt; ">const char</span><span style="font-family: '??'; color: rgb(0, 0, 0); font-size: 10pt; "> *szLogFile = </span><span style="font-family: '??'; color: rgb(163, 21, 21); font-size: 10pt; ">&quot;./debug.log&quot;</span><span style="font-family: '??'; color: rgb(0, 0, 0); font-size: 10pt; ">;</span></pre>
+	<pre style="background-color: rgb(255, 255, 255); text-indent: 0px; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; "><span style="font-family: '??'; color: rgb(0, 0, 0); font-size: 10pt; ">    </span><span style="font-family: '??'; color: rgb(0, 0, 255); font-size: 10pt; ">const int</span><span style="font-family: '??'; color: rgb(0, 0, 0); font-size: 10pt; "> iLogFileHandler = open( szLogFile , O_CREAT | O_APPEND | O_RDWR , 0644 );</span></pre>
+	<pre style="background-color: rgb(255, 255, 255); text-indent: 0px; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; "><span style="font-family: '??'; color: rgb(0, 0, 0); font-size: 10pt; ">    </span><span style="font-family: '??'; color: rgb(0, 0, 255); font-size: 10pt; ">if</span><span style="font-family: '??'; color: rgb(0, 0, 0); font-size: 10pt; "> ( iLogFileHandler &lt; 0 )</span></pre>
+	<pre style="background-color: rgb(255, 255, 255); text-indent: 0px; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; "><span style="font-family: '??'; color: rgb(0, 0, 0); font-size: 10pt; ">    {</span></pre>
+	<pre style="background-color: rgb(255, 255, 255); text-indent: 0px; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; "><span style="font-family: '??'; color: rgb(0, 0, 0); font-size: 10pt; ">        </span><span style="font-family: '??'; color: rgb(0, 128, 0); font-size: 10pt; ">// handle error.</span></pre>
+	<pre style="background-color: rgb(255, 255, 255); text-indent: 0px; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; "><span style="font-family: '??'; color: rgb(0, 0, 0); font-size: 10pt; ">        </span><span style="font-family: '??'; color: rgb(0, 0, 255); font-size: 10pt; ">return</span><span style="font-family: '??'; color: rgb(0, 0, 0); font-size: 10pt; "> errno;</span></pre>
+	<pre style="background-color: rgb(255, 255, 255); text-indent: 0px; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; "><span style="font-family: '??'; color: rgb(0, 0, 0); font-size: 10pt; ">    }</span></pre>
+	<pre style="background-color: rgb(255, 255, 255); text-indent: 0px; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: '??'; color: rgb(0, 0, 0); font-size: 10pt; ">　</pre>
+	<pre style="background-color: rgb(255, 255, 255); text-indent: 0px; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; "><span style="font-family: '??'; color: rgb(0, 0, 0); font-size: 10pt; ">    dup2( iLogFileHandler , fileno( stderr ) );</span></pre>
+	<pre style="background-color: rgb(255, 255, 255); text-indent: 0px; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: '??'; color: rgb(0, 0, 0); font-size: 10pt; ">　</pre>
+	<pre style="background-color: rgb(255, 255, 255); text-indent: 0px; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; "><span style="font-family: '??'; color: rgb(0, 0, 0); font-size: 10pt; ">    </span><span style="font-family: '??'; color: rgb(0, 128, 0); font-size: 10pt; ">// ...</span></pre>
+	<pre style="background-color: rgb(255, 255, 255); text-indent: 0px; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; "><span style="font-family: '??'; color: rgb(0, 0, 0); font-size: 10pt; ">    </span><span style="font-family: '??'; color: rgb(0, 128, 0); font-size: 10pt; ">// ...</span></pre>
+	<pre style="background-color: rgb(255, 255, 255); text-indent: 0px; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; "><span style="font-family: '??'; color: rgb(0, 0, 0); font-size: 10pt; ">    </span><span style="font-family: '??'; color: rgb(0, 128, 0); font-size: 10pt; ">// ...</span></pre>
+	<pre style="background-color: rgb(255, 255, 255); text-indent: 0px; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-family: '??'; color: rgb(0, 128, 0); font-size: 10pt; ">　</pre>
+	<pre style="background-color: rgb(255, 255, 255); text-indent: 0px; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; "><span style="font-family: '??'; color: rgb(0, 0, 0); font-size: 10pt; ">    </span><span style="font-family: '??'; color: rgb(0, 0, 255); font-size: 10pt; ">return</span><span style="font-family: '??'; color: rgb(0, 0, 0); font-size: 10pt; "> EXIT_SUCCESS;</span></pre>
+	<pre style="background-color: rgb(255, 255, 255); text-indent: 0px; margin-top: 0px; margin-right: 0px; margin-bottom: 12px; margin-left: 0px; "><span style="font-family: '??'; color: rgb(0, 0, 0); font-size: 10pt; ">}</span> </pre>
+	</span>
+	<p style="margin-top: 5px; margin-right: 0px; margin-bottom: 5px; margin-left: 0px; ">
+	　</p>
+	<p style="margin-top: 5px; margin-right: 0px; margin-bottom: 5px; margin-left: 0px; ">
+	如果您发现了任何的BUG或者是有好的建议，请联系: smilingmanatee(at)gmail.com.</div>
+</span>
+
+</body>
+
+</html>
